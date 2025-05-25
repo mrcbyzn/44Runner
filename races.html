@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+    <title>Race History - 44 Forward</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .brutalist-border {
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0 #000;
+        }
+        .brutalist-button {
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0 #000;
+            transition: all 0.1s ease-in-out;
+        }
+        .brutalist-button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+        .brutalist-hr {
+            border: none;
+            border-top: 2px dashed #000;
+            margin: 2rem 0;
+        }
+        .race-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        .race-card:hover {
+            transform: translate(-4px, -4px);
+        }
+        .header-scrolled {
+            padding: 0.25rem 1rem;
+            background: rgba(255, 99, 71, 0.95);
+            backdrop-filter: blur(5px);
+            transform: scaleY(0.5);
+            transform-origin: top;
+        }
+        .header-scrolled h1 {
+            margin: 0;
+            transform: scaleY(2);
+            transform-origin: top;
+            text-shadow: 2px 2px 0 #000000;
+        }
+        .header-scrolled p {
+            margin: 0;
+            transform: scaleY(2);
+            transform-origin: top;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        .header-transition {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-[#F0E68C] text-[#2F4F4F]" style='font-family: "Chakra Petch", "Lexend", "Noto Sans", sans-serif;'>
+    <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+        <header id="mainHeader" class="bg-[#FF6347] text-center py-10 px-4 border-b-4 border-black fixed w-full top-0 z-50 header-transition">
+            <h1 class="text-5xl md:text-7xl font-black leading-none tracking-tighter text-[#FFFF00] uppercase header-transition" style="text-shadow: 3px 3px 0 #000000;">
+                Race History
+            </h1>
+            <p class="text-xl md:text-2xl font-bold text-[#000000] mt-2 italic header-transition" style="text-shadow: 2px 2px 0 #FFFFFF;">"Every Finish Line is a New Starting Point"</p>
+        </header>
+        <div class="h-[200px]"></div>
+
+        <main class="px-4 md:px-10 flex flex-1 justify-center py-5">
+            <div class="max-w-[960px] w-full">
+                <a href="index.html" class="brutalist-button inline-block bg-[#000000] text-white px-4 py-2 mb-8 font-bold hover:bg-[#333333] transition-colors">
+                    ← Back to Home
+                </a>
+
+                <div id="racesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Races will be dynamically inserted here -->
+                    <div class="text-center p-8">
+                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
+                        <p class="mt-4 text-lg">Loading races...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-[#00CED1] text-center py-8 mt-12 border-t-4 border-black">
+            <p class="text-sm text-[#000000] font-medium">
+                © 2024 44 Forward. No rights reserved. <span class="font-bold italic">Keep Running!</span>
+            </p>
+            <p class="text-xs text-[#2F4F4F] mt-1">
+                This website is a post-ironic statement on digital brutalism and the futility of eternal youth. Or maybe I just like bright colors.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header scroll effect
+            const header = document.getElementById('mainHeader');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 100) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+                lastScroll = currentScroll;
+            });
+
+            // Fetch and display races
+            async function fetchRaces() {
+                try {
+                    const response = await fetch('/api/races');
+                    const races = await response.json();
+                    
+                    // Group races by year
+                    const racesByYear = races.reduce((acc, race) => {
+                        const year = new Date(race.start_date_local).getFullYear();
+                        if (!acc[year]) acc[year] = [];
+                        acc[year].push(race);
+                        return acc;
+                    }, {});
+
+                    // Sort years in descending order
+                    const years = Object.keys(racesByYear).sort((a, b) => b - a);
+
+                    // Generate HTML for each year
+                    const racesContainer = document.getElementById('racesContainer');
+                    racesContainer.innerHTML = years.map(year => `
+                        <div class="bg-[#ADD8E6] p-6 brutalist-border race-card">
+                            <h2 class="text-2xl font-bold mb-4 text-[#000000]">${year}</h2>
+                            <div class="space-y-4">
+                                ${racesByYear[year].map(race => `
+                                    <div class="bg-white p-4 brutalist-border">
+                                        <h3 class="font-bold text-lg">${race.name}</h3>
+                                        <p class="text-sm text-gray-600">${new Date(race.start_date_local).toLocaleDateString()}</p>
+                                        ${race.moving_time ? `<p class="mt-2">Time: ${formatTime(race.moving_time)}</p>` : ''}
+                                        ${race.distance ? `<p>Distance: ${(race.distance / 1000).toFixed(2)} km</p>` : ''}
+                                        ${race.total_elevation_gain ? `<p>Elevation Gain: ${Math.round(race.total_elevation_gain)}m</p>` : ''}
+                                        ${race.average_speed ? `<p>Avg Speed: ${(race.average_speed * 3.6).toFixed(1)} km/h</p>` : ''}
+                                        ${race.average_heartrate ? `<p>Avg HR: ${Math.round(race.average_heartrate)} bpm</p>` : ''}
+                                        ${race.location_city ? `<p class="text-sm text-gray-500 mt-2">${race.location_city}${race.location_state ? `, ${race.location_state}` : ''}${race.location_country ? `, ${race.location_country}` : ''}</p>` : ''}
+                                        ${race.description ? `<p class="text-sm italic mt-2">${race.description}</p>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error fetching races:', error);
+                    document.getElementById('racesContainer').innerHTML = `
+                        <div class="col-span-2 text-center p-8">
+                            <p class="text-red-600">Error loading races. Please try again later.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Helper function to format time
+            function formatTime(seconds) {
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const remainingSeconds = seconds % 60;
+                
+                if (hours > 0) {
+                    return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+                }
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+
+            // Fetch races when page loads
+            fetchRaces();
+        });
+    </script>
+</body>
+</html> 

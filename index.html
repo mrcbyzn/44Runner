@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<title>44 Forward - Past Forty, Still Forward</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/training.js"></script>
+<style>
+    .brutalist-border {
+      border: 2px solid #000000;
+      box-shadow: 4px 4px 0px #000000;
+    }
+    .brutalist-button {
+      background-color: #FFFFFF;
+      border: 2px solid #000000;
+      box-shadow: 2px 2px 0px #000000;
+      transition: all 0.1s ease-in-out;
+    }
+    .brutalist-button:hover {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #000000;
+    }
+    .brutalist-button.active {
+      background-color: #000000;
+      color: #FFFFFF;
+    }
+    .brutalist-hr {
+      border: none;
+      border-top: 2px dashed #000;
+      margin: 2rem 0;
+    }
+    .header-scrolled {
+      padding: 0.25rem 1rem;
+      background: rgba(255, 99, 71, 0.95);
+      backdrop-filter: blur(5px);
+      transform: scaleY(0.5);
+      transform-origin: top;
+    }
+    .header-scrolled h1 {
+      margin: 0;
+      transform: scaleY(2);
+      transform-origin: top;
+      text-shadow: 2px 2px 0 #000000;
+    }
+    .header-scrolled p {
+      margin: 0;
+      transform: scaleY(2);
+      transform-origin: top;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    .header-transition {
+      transition: all 0.3s ease-in-out;
+    }
+    .card {
+      flex: 1;
+      min-width: 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      background-color: #E6E6FA;
+      border: 2px solid #000000;
+      box-shadow: 4px 4px 0px #000000;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-header h2 {
+      color: #1A1A1A;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    .metric-toggle {
+      display: flex;
+      gap: 4px;
+    }
+    .metric-toggle button {
+      padding: 4px 8px;
+      font-size: 0.875rem;
+      background-color: #FFFFFF;
+      border: 2px solid #000000;
+      box-shadow: 2px 2px 0px #000000;
+      cursor: pointer;
+    }
+    .metric-toggle button:hover {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #000000;
+    }
+    .metric-toggle button.active {
+      background-color: #000000;
+      color: #FFFFFF;
+    }
+    .chart-container {
+      margin-top: 16px;
+      border: 2px solid #000000;
+    }
+    .grid-flow-col {
+      border: 2px solid #000000;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body class="bg-[#F0E68C] text-[#2F4F4F]" style='font-family: "Chakra Petch", "Lexend", "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header id="mainHeader" class="bg-[#FF6347] text-center py-10 px-4 border-b-4 border-black fixed w-full top-0 z-50 header-transition">
+<h1 class="text-5xl md:text-7xl font-black leading-none tracking-tighter text-[#FFFF00] uppercase header-transition" style="text-shadow: 3px 3px 0 #000000;">
+          44 Forward
+        </h1>
+<p class="text-xl md:text-2xl font-bold text-[#000000] mt-2 italic header-transition" style="text-shadow: 1px 1px 0 #FFFFFF;">"Past Forty, Still Forward"</p>
+</header>
+<div class="h-[200px]"></div>
+<main class="px-4 md:px-10 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<section class="mb-12">
+<div class="flex justify-between items-center border-b-2 border-[#4682B4] pb-2 mb-6">
+  <h2 class="text-3xl md:text-4xl font-bold text-[#4682B4] uppercase tracking-wider">
+    Races I Have Run
+  </h2>
+  <a href="races.html" class="brutalist-button bg-[#FF0000] text-white px-4 py-2 font-bold hover:bg-[#CC0000] transition-colors -rotate-3" style="box-shadow: 4px 4px 0 #000, -2px -2px 0 #000;">
+    <span class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+      </svg>
+      RACE HISTORY
+    </span>
+  </a>
+</div>
+<div id="recentRacesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+<!-- Loading state -->
+<div class="col-span-full text-center p-8">
+<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
+<p class="mt-4 text-lg">Loading recent races...</p>
+</div>
+</div>
+</section>
+<hr class="brutalist-hr max-w-[960px] mx-auto"/>
+<section class="mb-12">
+<h2 class="text-3xl md:text-4xl font-bold text-[#FF1493] border-b-2 border-[#FF1493] pb-2 mb-6 uppercase tracking-wider">
+              About Me (The "Runner")
+            </h2>
+<div class="flex flex-col md:flex-row gap-6 items-start bg-[#FA8072] p-6 brutalist-border">
+<div class="w-full md:w-1/3 lg:w-1/4">
+<div class="aspect-square bg-center bg-no-repeat bg-cover border-2 border-black brutalist-border" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQVcBIosVbi43_Y0sbw9guLiid9bkhQFU2UcVQnkhd6QKdiNidAKNCvGub0ReyeTTQWPr5qFk3xikJu0UpGQ4hXs-3dVvqQJJKyHJ8SywLbMCJf7ZLnFvUX2U1iwj877D_FYCwkSZLzMTaS-dRp_Xfx-1grWnzMRFZP6lQk_-LUbt8tzJAOwgJ09PJJRSuWVsGUyXcE5yglw4Qr9Uxq7g1o0zJiPMfraq8wPwC5a2kz0vf1gxE6_m7b6EEThs6YTok9gEXaWdTilZ_");'>
+</div>
+</div>
+<div class="flex-1 space-y-4">
+<p class="text-[#000000] text-lg leading-relaxed">
+                  So, you want to know about me? Well, I run. Sometimes. Mostly when I'm not eating pizza or complaining about running. I started this whole "fitness journey" (eye-roll) after realizing my main form of cardio was chasing the ice cream truck. Now, I'm slightly less out of breath doing it.
+                </p>
+<p class="text-[#000000] text-lg leading-relaxed">
+                  My running philosophy is simple: if you see me collapse, pause my Garmin. This blog is a highly unreliable account of my attempts to outrun my poor life choices, one agonizingly slow mile at a time. Join me, or don't. I'll probably be napping.
+                </p>
+</div>
+</div>
+</section>
+<hr class="brutalist-hr max-w-[960px] mx-auto"/>
+<section class="mb-12">
+<div class="flex justify-between items-center border-b-2 border-[#DAA520] pb-2 mb-6">
+  <h2 class="text-3xl md:text-4xl font-bold text-[#DAA520] uppercase tracking-wider">
+    Training Data
+  </h2>
+  <a href="progress.html" class="brutalist-button bg-[#000000] text-white px-4 py-2 font-bold hover:bg-[#333333] transition-colors rotate-3" style="box-shadow: 4px 4px 0 #000, -2px -2px 0 #000;">
+    <span class="flex items-center gap-2">
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+      </svg>
+      TRACK PROGRESS
+    </span>
+  </a>
+</div>
+<div class="flex flex-wrap gap-6">
+<div class="card">
+  <div class="card-header">
+    <h2 id="mileageTitle">Weekly Distance</h2>
+    <div class="metric-toggle">
+      <button data-type="mileage" data-value="weekly" class="active">W</button>
+      <button data-type="mileage" data-value="monthly">M</button>
+      <button data-type="mileage" data-value="yearly">Y</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="text-4xl font-bold mb-4" id="mileageValue">0 km</div>
+    <div class="text-sm font-bold text-[#008000]" id="mileageTrend">+0%</div>
+    <div class="chart-container w-full">
+      <svg width="100%" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0000FF" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#0000FF" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M16,100 L384,100" stroke="#000000" stroke-width="1"/>
+        <path d="M16,100 L16,16" stroke="#000000" stroke-width="1"/>
+        <path d="M16,100 L384,100" stroke="#0000FF" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h2 id="metricTitle">Training Load</h2>
+    <div class="metric-toggle grid grid-cols-4 gap-2">
+      <button data-type="metric" data-value="load" class="active">Load</button>
+      <button data-type="metric" data-value="heart">Heart</button>
+      <button data-type="metric" data-value="streak">Streak</button>
+      <button data-type="metric" data-value="fun">Fun</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="text-4xl font-bold mb-4" id="metricValue">0 <span class="text-2xl">TSS</span></div>
+    <div class="text-sm font-bold text-[#008000]" id="metricTrend">+0%</div>
+    <div class="grid grid-flow-col gap-4 h-32">
+      <div class="bg-[#0000FF] w-8"></div>
+      <div class="bg-[#0000FF] w-8"></div>
+      <div class="bg-[#0000FF] w-8"></div>
+      <div class="bg-[#0000FF] w-8"></div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<hr class="brutalist-hr max-w-[960px] mx-auto"/>
+<section class="mb-12">
+<h2 class="text-3xl md:text-4xl font-bold text-[#32CD32] border-b-2 border-[#32CD32] pb-2 mb-6 uppercase tracking-wider">
+              Bucket List Events &amp; Future Goals
+            </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-[#FFFFE0] p-6 brutalist-border flex flex-col gap-3 hover:bg-[#FFFACD] transition-colors">
+<h3 class="text-xl font-bold text-[#1A1A1A]">The "Why Tho" Ultra Marathon</h3>
+<p class="text-[#555555] text-sm leading-relaxed">
+                  Because apparently, I hate my knees and love public suffering. Goal: finish before the heat death of the universe. Or at least before they run out of snacks at the aid stations.
+                </p>
+</div>
+<div class="bg-[#FFFFE0] p-6 brutalist-border flex flex-col gap-3 hover:bg-[#FFFACD] transition-colors">
+<h3 class="text-xl font-bold text-[#1A1A1A]">Local Turkey Trot 5K</h3>
+<p class="text-[#555555] text-sm leading-relaxed">
+                  Am I aiming for a PR? Nope. Just want to beat Uncle Barry after his third serving of stuffing. It's a low bar, but it's MY low bar. Plus, pie at the finish line.
+                </p>
+</div>
+<div class="bg-[#FFFFE0] p-6 brutalist-border flex flex-col gap-3 hover:bg-[#FFFACD] transition-colors">
+<h3 class="text-xl font-bold text-[#1A1A1A]">Triathlon (The Swim Bit Is a Joke)</h3>
+<p class="text-[#555555] text-sm leading-relaxed">
+                  Run: cool. Bike: sure, why not. Swim: currently accepting applications for a body double or very convincing flotation device. My main goal is not to require a lifeguard rescue.
+                </p>
+</div>
+<div class="bg-[#FFFFE0] p-6 brutalist-border flex flex-col gap-3 hover:bg-[#FFFACD] transition-colors">
+<h3 class="text-xl font-bold text-[#1A1A1A]">Run a Mile Without Complaining</h3>
+<p class="text-[#555555] text-sm leading-relaxed">
+                  This is the real Everest. The ultimate test of endurance. Pretty sure this one's impossible, but a man can dream, can't he? A very, very whiny dream.
+                </p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<hr class="brutalist-hr max-w-[960px] mx-auto"/>
+<section class="mb-12">
+<div class="flex flex-wrap justify-center gap-4 p-4 bg-[#FFE4B5] brutalist-border max-w-[960px] mx-auto">
+<a href="mailto:your.email@example.com" class="brutalist-button px-4 py-2 bg-[#FF6347] text-white font-bold hover:bg-[#FF4500] transition-colors">
+              <span class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                Email
+              </span>
+            </a>
+<a href="https://www.strava.com/athletes/your-strava-id" target="_blank" class="brutalist-button px-4 py-2 bg-[#FC4C02] text-white font-bold hover:bg-[#E64400] transition-colors">
+              <span class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066l-2.084 4.116zM24 18.82v-5.98h-3.03v5.98H24zM8.574 24l-2.09-4.116H3.42L8.574 24zm5.15-10.172H5.48L0 0h8.574l5.15 10.172z"/>
+                </svg>
+                Strava
+              </span>
+            </a>
+</div>
+</section>
+<footer class="bg-[#00CED1] text-center py-8 mt-12 border-t-4 border-black">
+<p class="text-sm text-[#000000] font-medium">
+          © 2024 44 Forward. No rights reserved. <span class="font-bold italic">Keep Running!</span>
+</p>
+<p class="text-xs text-[#2F4F4F] mt-1">
+          This website is a post-ironic statement on digital brutalism and the futility of eternal youth. Or maybe I just like bright colors.
+        </p>
+</footer>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Header scroll handling
+        const header = document.getElementById('mainHeader');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Fetch and display recent races
+        async function fetchRecentRaces() {
+            try {
+                const response = await fetch('/api/races');
+                const races = await response.json();
+                
+                // Get the 3 most recent races
+                const recentRaces = races.slice(0, 3);
+                
+                // Helper function to format time
+                function formatTime(seconds) {
+                    const hours = Math.floor(seconds / 3600);
+                    const minutes = Math.floor((seconds % 3600) / 60);
+                    const remainingSeconds = seconds % 60;
+                    
+                    if (hours > 0) {
+                        return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+                    }
+                    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                }
+
+                // Color options for race cards
+                const cardColors = ['#ADD8E6', '#90EE90', '#FFA07A', '#DDA0DD', '#F0E68C', '#FFB6C1'];
+                
+                // Generate HTML for recent races
+                const racesContainer = document.getElementById('recentRacesContainer');
+                if (recentRaces.length > 0) {
+                    racesContainer.innerHTML = recentRaces.map((race, index) => `
+                        <div class="flex flex-col gap-3 pb-3 p-4 brutalist-border" style="background-color: ${cardColors[index % cardColors.length]};">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover border-2 border-black" style="background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;"></div>
+                            <div>
+                                <p class="text-[#1A1A1A] text-lg font-semibold">${race.name}</p>
+                                <p class="text-[#555555] text-sm">${new Date(race.start_date_local).toLocaleDateString()}</p>
+                                ${race.moving_time ? `<p class="text-[#555555] text-sm">Time: ${formatTime(race.moving_time)}</p>` : ''}
+                                ${race.distance ? `<p class="text-[#555555] text-sm">Distance: ${(race.distance / 1000).toFixed(2)} km</p>` : ''}
+                                ${race.total_elevation_gain ? `<p class="text-[#555555] text-sm">Elevation: ${Math.round(race.total_elevation_gain)}m</p>` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    racesContainer.innerHTML = `
+                        <div class="col-span-full text-center p-8">
+                            <p class="text-lg">No races found. Time to sign up for some!</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching races:', error);
+                document.getElementById('recentRacesContainer').innerHTML = `
+                    <div class="col-span-full text-center p-8">
+                        <p class="text-red-600">Error loading races. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Metric button handling
+        const metricButtons = document.querySelectorAll('.metric-toggle button');
+        metricButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const type = this.dataset.type;
+                const value = this.dataset.value;
+                
+                // Update active state
+                document.querySelectorAll(`[data-type="${type}"]`).forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                // Update content
+                if (type === 'mileage') {
+                    const title = document.getElementById('mileageTitle');
+                    const valueEl = document.getElementById('mileageValue');
+                    const trend = document.getElementById('mileageTrend');
+
+                    if (value === 'weekly') {
+                        title.textContent = 'Weekly Distance';
+                        valueEl.textContent = '56 km';
+                        trend.textContent = '+10%';
+                        trend.className = 'text-[#008000] text-sm font-bold';
+                    } else if (value === 'monthly') {
+                        title.textContent = 'Monthly Distance';
+                        valueEl.textContent = '228 km';
+                        trend.textContent = '+15%';
+                        trend.className = 'text-[#008000] text-sm font-bold';
+                    } else {
+                        title.textContent = 'Total Distance';
+                        valueEl.textContent = '2,008 km';
+                        trend.textContent = 'YTD';
+                        trend.className = 'text-[#555555] text-sm font-bold';
+                    }
+                } else if (type === 'pace') {
+                    const title = document.getElementById('paceTitle');
+                    const valueEl = document.getElementById('paceValue');
+                    const trend = document.getElementById('paceTrend');
+
+                    if (value === 'pace') {
+                        title.textContent = 'Average Pace';
+                        valueEl.innerHTML = '5:17 <span class="text-2xl">min/km</span>';
+                        trend.textContent = '-5%';
+                        trend.className = 'text-[#FF0000] text-sm font-bold';
+                    } else if (value === 'vertical') {
+                        title.textContent = 'Vertical Gain';
+                        valueEl.innerHTML = '381 <span class="text-2xl">m</span>';
+                        trend.textContent = '+20%';
+                        trend.className = 'text-[#008000] text-sm font-bold';
+                    } else {
+                        title.textContent = 'Total Distance';
+                        valueEl.innerHTML = '2,008 <span class="text-2xl">km</span>';
+                        trend.textContent = 'YTD';
+                        trend.className = 'text-[#555555] text-sm font-bold';
+                    }
+                }
+            });
+        });
+
+        // Load recent races when page loads
+        fetchRecentRaces();
+    });
+</script>
+</body></html>
