@@ -1,0 +1,5 @@
+node_modules/
+npm-debug.log
+*.sqlite
+strava_data.sqlite
+strava_data.sqlite-journal

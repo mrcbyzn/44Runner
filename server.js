@@ -18,7 +18,7 @@ initializeDatabase();
 // Strava OAuth Configuration
 const STRAVA_CLIENT_ID = process.env.STRAVA_CLIENT_ID;
 const STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:3000/auth/strava/callback';
+const REDIRECT_URI = process.env.STRAVA_REDIRECT_URI || 'http://localhost:3000/auth/strava/callback';
 
 // Strava OAuth endpoints
 app.get('/auth/strava', (req, res) => {
