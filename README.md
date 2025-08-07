@@ -14,7 +14,6 @@
 - **Backend:** Node.js, Express.js
 - **Database:** Sequelize (ORM), SQLite
 - **Frontend:** HTML, Tailwind CSS, JavaScript
-- **Authentication:** OAuth 2.0 (Strava)
 
 ## Setup and Installation
 To set up and run the project locally, follow these steps:
