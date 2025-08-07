@@ -1,7 +1,7 @@
 # 44 Forward
 
 ## Description
-44 Forward is a web application designed to help users track and analyze their running data. It allows users to import their activities from Strava, view detailed race information, and monitor their training statistics. The primary purpose of this project is to provide a centralized platform for runners to manage their performance data and gain insights into their training progress.
+44 Forward is a web application designed to display my running data. It allows me to import my running data from a google sheets file, view detailed race information, and monitor my statistics. The primary purpose of this project is to provide a centralized platform for me to display data and to share to others. Lie a personla business page.
 
 ## Features
 - **Race Data Display:** View comprehensive details of past races, automatically identified from Strava activities.
