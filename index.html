@@ -352,9 +352,9 @@
                         <div class="flex flex-col gap-3 pb-3 p-4 brutalist-border" style="background-color: ${cardColors[index % cardColors.length]};">
                             <div class="w-full bg-center bg-no-repeat aspect-video bg-cover border-2 border-black" style="background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;"></div>
                             <div>
-                                <p class="text-[#1A1A1A] text-lg font-semibold">${race.name}</p>
-                                <p class="text-[#555555] text-sm">${new Date(race.start_date_local).toLocaleDateString()}</p>
-                                ${race.moving_time ? `<p class="text-[#555555] text-sm">Time: ${formatTime(race.moving_time)}</p>` : ''}
+                                <p class="text-[#1A1A1A] text-lg font-semibold">${race.Activity.name}</p>
+                                <p class="text-[#555555] text-sm">${new Date(race.Activity.start_date).toLocaleDateString()}</p>
+                                ${race.Activity.moving_time ? `<p class="text-[#555555] text-sm">Time: ${formatTime(race.Activity.moving_time)}</p>` : ''}
                                 ${race.distance ? `<p class="text-[#555555] text-sm">Distance: ${(race.distance / 1000).toFixed(2)} km</p>` : ''}
                                 ${race.total_elevation_gain ? `<p class="text-[#555555] text-sm">Elevation: ${Math.round(race.total_elevation_gain)}m</p>` : ''}
                             </div>
