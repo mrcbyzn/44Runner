@@ -120,6 +120,15 @@
 <div class="h-[200px]"></div>
 <main class="px-4 md:px-10 flex flex-1 justify-center py-5">
 <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<section id="featured-race-section" class="mb-12" style="display: none;">
+    <h2 class="text-3xl md:text-4xl font-bold text-[#FF4500] border-b-2 border-[#FF4500] pb-2 mb-6 uppercase tracking-wider">
+        Featured Next Race
+    </h2>
+    <div id="featured-race-content" class="bg-[#FFF8DC] p-6 brutalist-border">
+        <!-- Featured race content will be inserted here -->
+    </div>
+</section>
+<hr class="brutalist-hr max-w-[960px] mx-auto"/>
 <section class="mb-12">
 <div class="flex justify-between items-center border-b-2 border-[#4682B4] pb-2 mb-6">
   <h2 class="text-3xl md:text-4xl font-bold text-[#4682B4] uppercase tracking-wider">
@@ -141,6 +150,16 @@
 <p class="mt-4 text-lg">Loading recent races...</p>
 </div>
 </div>
+</section>
+<hr class="brutalist-hr max-w-[960px] mx-auto"/>
+<section id="utmb-section" class="mb-12" style="display: none;">
+    <h2 class="text-3xl md:text-4xl font-bold text-[#8B4513] border-b-2 border-[#8B4513] pb-2 mb-6 uppercase tracking-wider">
+        UTMB®/ITRA Score
+    </h2>
+    <div class="bg-[#F5DEB3] p-6 brutalist-border">
+        <p class="text-xl">UTMB Index: <span id="utmb-index" class="font-bold"></span></p>
+        <p class="text-xl">ITRA Score: <span id="itra-score" class="font-bold"></span></p>
+    </div>
 </section>
 <hr class="brutalist-hr max-w-[960px] mx-auto"/>
 <section class="mb-12">
@@ -274,14 +293,6 @@
                 Email
               </span>
             </a>
-<a href="https://www.strava.com/athletes/your-strava-id" target="_blank" class="brutalist-button px-4 py-2 bg-[#FC4C02] text-white font-bold hover:bg-[#E64400] transition-colors">
-              <span class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066l-2.084 4.116zM24 18.82v-5.98h-3.03v5.98H24zM8.574 24l-2.09-4.116H3.42L8.574 24zm5.15-10.172H5.48L0 0h8.574l5.15 10.172z"/>
-                </svg>
-                Strava
-              </span>
-            </a>
 </div>
 </section>
 <footer class="bg-[#00CED1] text-center py-8 mt-12 border-t-4 border-black">
@@ -341,9 +352,9 @@
                         <div class="flex flex-col gap-3 pb-3 p-4 brutalist-border" style="background-color: ${cardColors[index % cardColors.length]};">
                             <div class="w-full bg-center bg-no-repeat aspect-video bg-cover border-2 border-black" style="background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;"></div>
                             <div>
-                                <p class="text-[#1A1A1A] text-lg font-semibold">${race.name}</p>
-                                <p class="text-[#555555] text-sm">${new Date(race.start_date_local).toLocaleDateString()}</p>
-                                ${race.moving_time ? `<p class="text-[#555555] text-sm">Time: ${formatTime(race.moving_time)}</p>` : ''}
+                                <p class="text-[#1A1A1A] text-lg font-semibold">${race.Activity.name}</p>
+                                <p class="text-[#555555] text-sm">${new Date(race.Activity.start_date).toLocaleDateString()}</p>
+                                ${race.Activity.moving_time ? `<p class="text-[#555555] text-sm">Time: ${formatTime(race.Activity.moving_time)}</p>` : ''}
                                 ${race.distance ? `<p class="text-[#555555] text-sm">Distance: ${(race.distance / 1000).toFixed(2)} km</p>` : ''}
                                 ${race.total_elevation_gain ? `<p class="text-[#555555] text-sm">Elevation: ${Math.round(race.total_elevation_gain)}m</p>` : ''}
                             </div>
@@ -428,6 +439,48 @@
 
         // Load recent races when page loads
         fetchRecentRaces();
+
+        // Fetch and display UTMB/ITRA score
+        async function fetchUtmbScore() {
+            try {
+                const response = await fetch('/api/utmb-score');
+                const score = await response.json();
+
+                if (score && score.utmbIndex) {
+                    document.getElementById('utmb-index').textContent = score.utmbIndex;
+                    document.getElementById('itra-score').textContent = score.itraScore;
+                    document.getElementById('utmb-section').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error fetching UTMB/ITRA score:', error);
+            }
+        }
+
+        // Load UTMB/ITRA score when page loads
+        fetchUtmbScore();
+
+        // Fetch and display featured race
+        async function fetchFeaturedRace() {
+            try {
+                const response = await fetch('/api/featured-race');
+                const race = await response.json();
+
+                if (race) {
+                    const content = `
+                        <h3 class="font-bold text-2xl">${race.Activity.name}</h3>
+                        <p class="text-lg text-gray-600">${new Date(race.Activity.start_date).toLocaleDateString()}</p>
+                        <p class="mt-2">${race.Activity.description}</p>
+                    `;
+                    document.getElementById('featured-race-content').innerHTML = content;
+                    document.getElementById('featured-race-section').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error fetching featured race:', error);
+            }
+        }
+
+        // Load featured race when page loads
+        fetchFeaturedRace();
     });
 </script>
 </body></html>

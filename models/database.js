@@ -9,8 +9,9 @@ const sequelize = new Sequelize({
 
 // Define Activity model
 const Activity = sequelize.define('Activity', {
-    strava_id: {
-        type: DataTypes.BIGINT,
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     name: {
@@ -21,20 +22,11 @@ const Activity = sequelize.define('Activity', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    sport_type: {
-        type: DataTypes.STRING
-    },
-    workout_type: {
-        type: DataTypes.INTEGER
-    },
     start_date: {
         type: DataTypes.DATE,
         allowNull: false
     },
     moving_time: {
-        type: DataTypes.INTEGER
-    },
-    elapsed_time: {
         type: DataTypes.INTEGER
     },
     distance: {
@@ -43,29 +35,8 @@ const Activity = sequelize.define('Activity', {
     total_elevation_gain: {
         type: DataTypes.FLOAT
     },
-    average_speed: {
-        type: DataTypes.FLOAT
-    },
-    max_speed: {
-        type: DataTypes.FLOAT
-    },
-    average_heartrate: {
-        type: DataTypes.FLOAT
-    },
-    max_heartrate: {
-        type: DataTypes.FLOAT
-    },
-    elev_high: {
-        type: DataTypes.FLOAT
-    },
-    elev_low: {
-        type: DataTypes.FLOAT
-    },
     description: {
         type: DataTypes.TEXT
-    },
-    calories: {
-        type: DataTypes.FLOAT
     },
     location_country: {
         type: DataTypes.STRING
@@ -76,15 +47,14 @@ const Activity = sequelize.define('Activity', {
     location_city: {
         type: DataTypes.STRING
     },
-    last_synced: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+    featured: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 });
 
 // Define Race model (extends Activity)
 const Race = sequelize.define('Race', {
-    // Additional race-specific fields can be added here
     placement: {
         type: DataTypes.INTEGER
     },
@@ -99,52 +69,14 @@ const Race = sequelize.define('Race', {
 // Create associations
 Race.belongsTo(Activity, { foreignKey: 'activity_id' });
 
-// Helper function to sync activities from Strava
-async function syncActivities(activities) {
-    for (const activity of activities) {
-        await Activity.upsert({
-            strava_id: activity.id,
-            name: activity.name,
-            type: activity.type,
-            sport_type: activity.sport_type,
-            workout_type: activity.workout_type,
-            start_date: activity.start_date_local,
-            moving_time: activity.moving_time,
-            elapsed_time: activity.elapsed_time,
-            distance: activity.distance,
-            total_elevation_gain: activity.total_elevation_gain,
-            average_speed: activity.average_speed,
-            max_speed: activity.max_speed,
-            average_heartrate: activity.average_heartrate,
-            max_heartrate: activity.max_heartrate,
-            elev_high: activity.elev_high,
-            elev_low: activity.elev_low,
-            description: activity.description,
-            calories: activity.calories,
-            location_country: activity.location_country,
-            location_state: activity.location_state,
-            location_city: activity.location_city,
-            last_synced: new Date()
-        });
-
-        // If it's a race, create or update race record
-        if (activity.type === 'Race' || activity.workout_type === 3) {
-            await Race.upsert({
-                activity_id: activity.id,
-                // Add any race-specific data here
-            });
-        }
-    }
-}
-
 // Initialize database
 async function initializeDatabase() {
     try {
         await sequelize.authenticate();
         console.log('Database connection established.');
-        
+
         // Sync all models
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
         console.log('Database models synchronized.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
@@ -168,7 +100,7 @@ async function getTrainingStats(year = null) {
             where: whereClause,
             attributes: [
                 [sequelize.fn('SUM', sequelize.col('distance')), 'total_distance'],
-                [sequelize.fn('COUNT', sequelize.col('strava_id')), 'total_activities'],
+                [sequelize.fn('COUNT', sequelize.col('id')), 'total_activities'],
                 [sequelize.fn('SUM', sequelize.col('total_elevation_gain')), 'total_vert'],
                 [sequelize.fn('AVG', sequelize.col('distance')), 'avg_distance']
             ]
@@ -189,7 +121,7 @@ async function getTrainingStats(year = null) {
             total_vert: stats[0].getDataValue('total_vert') || 0,
             avg_distance: stats[0].getDataValue('avg_distance') || 0,
             total_days: daysWithRuns.length,
-            avg_distance_per_day: daysWithRuns.length > 0 ? 
+            avg_distance_per_day: daysWithRuns.length > 0 ?
                 (stats[0].getDataValue('total_distance') || 0) / daysWithRuns.length : 0
         };
     } catch (error) {
@@ -254,7 +186,7 @@ async function getWeeklyStats(year = null) {
                     'week'
                 ],
                 [sequelize.fn('SUM', sequelize.col('distance')), 'total_distance'],
-                [sequelize.fn('COUNT', sequelize.col('strava_id')), 'total_activities'],
+                [sequelize.fn('COUNT', sequelize.col('id')), 'total_activities'],
                 [sequelize.fn('SUM', sequelize.col('total_elevation_gain')), 'total_vert'],
                 [
                     sequelize.literal(`COUNT(DISTINCT strftime('%Y-%m-%d', start_date))`),
@@ -278,7 +210,7 @@ async function getWeeklyStats(year = null) {
             total_activities: stat.getDataValue('total_activities') || 0,
             total_vert: stat.getDataValue('total_vert') || 0,
             days_run: stat.getDataValue('days_run') || 0,
-            avg_distance_per_day: stat.getDataValue('days_run') > 0 ? 
+            avg_distance_per_day: stat.getDataValue('days_run') > 0 ?
                 (stat.getDataValue('total_distance') || 0) / stat.getDataValue('days_run') : 0
         }));
     } catch (error) {
@@ -312,7 +244,7 @@ async function getMonthlyStats(year = null) {
                     'month'
                 ],
                 [sequelize.fn('SUM', sequelize.col('distance')), 'total_distance'],
-                [sequelize.fn('COUNT', sequelize.col('strava_id')), 'total_activities'],
+                [sequelize.fn('COUNT', sequelize.col('id')), 'total_activities'],
                 [sequelize.fn('SUM', sequelize.col('total_elevation_gain')), 'total_vert'],
                 [
                     sequelize.literal(`COUNT(DISTINCT strftime('%Y-%m-%d', start_date))`),
@@ -336,7 +268,7 @@ async function getMonthlyStats(year = null) {
             total_activities: stat.getDataValue('total_activities') || 0,
             total_vert: stat.getDataValue('total_vert') || 0,
             days_run: stat.getDataValue('days_run') || 0,
-            avg_distance_per_day: stat.getDataValue('days_run') > 0 ? 
+            avg_distance_per_day: stat.getDataValue('days_run') > 0 ?
                 (stat.getDataValue('total_distance') || 0) / stat.getDataValue('days_run') : 0
         }));
     } catch (error) {
@@ -349,10 +281,9 @@ module.exports = {
     sequelize,
     Activity,
     Race,
-    syncActivities,
     initializeDatabase,
     getTrainingStats,
     getYearlyStats,
     getWeeklyStats,
     getMonthlyStats
-}; 
+};
